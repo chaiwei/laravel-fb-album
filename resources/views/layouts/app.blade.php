@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>{{ $page_title or "Admin Dashboard" }}</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome/4.6.3/css/font-awesome.min.css') }}">
@@ -13,7 +13,12 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap/3.3.7/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/global.style.css') }}">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
+
+    <!-- JavaScripts -->
+    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/css/bootstrap/3.3.7/js/bootstrap.min.js') }}"></script>
 
 </head>
 <body id="app-layout">
@@ -64,50 +69,50 @@
             </div>
         </nav>
 
-        @yield('content')
+        <div id="main-content">
+            <!-- Display Validation Errors -->
+            @include('errors.errors')
+            @yield('content')
+        </div>
+
+        <div id="footer">
+            <div class="container">
+              <div class="col-md-6"></div>
+              <div class="col-md-6 text-right">Version {{ env('VERSION','1.0') }}</div>
+            </div>
+        </div>
+
+        @yield('custom_js')
     </div>
 
-    <!-- JavaScripts -->
-    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/css/bootstrap/3.3.7/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.pjax.js') }}"></script>
     <script src="{{ asset('assets/js/nanobar.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.pjax.js') }}"></script>
     <script type="text/javascript">
 
-        var options = {
-          bg: '#aaccff',
+        var nano_options = {
+          bg: '#acf',
           id: 'loading-nanobar'
         };
 
-        var nanobar = new Nanobar( options );
+        var nanobar = new Nanobar( nano_options );
 
         $(document).ready(function(){
 
             // pjax
             $(document).pjax('a', '#page-wrapper');
-
             $(document).on('pjax:send', function() {
-              nanobar.go(30);
-              setTimeout( nanobar.go(60), 1500 );
+                nanobar.go(30);
+                setTimeout( nanobar.go(60), 1500 );
             });
-
             $(document).on('pjax:complete', function() {
-              nanobar.go(100);
-            });
-            $(document).on('pjax:error', function(event, xhr, textStatus, errorThrown, options){
-                if (xhr.status == 422) {
-                   options.success(xhr.responseText, status, xhr);
-                   return false;
-                }
+                nanobar.go(100);
             });
 
             // does current browser support PJAX
             if ($.support.pjax) {
               $.pjax.defaults.timeout = 4000; // time in milliseconds
             }
-
         });
-
     </script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 </body>
