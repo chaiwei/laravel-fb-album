@@ -18,3 +18,6 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+
+Route::resource('/album', 'AlbumController');
+Route::resource('/course', 'CourseController');

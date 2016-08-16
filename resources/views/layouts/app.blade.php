@@ -45,6 +45,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a href="{{ url('/home') }}">Home</a></li>
+                        <li><a href="{{ url('/album') }}">Album</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -78,7 +79,7 @@
         <div id="footer">
             <div class="container">
               <div class="col-md-6"></div>
-              <div class="col-md-6 text-right">Version {{ env('VERSION','1.0') }}</div>
+              <div class="col-md-6 text-right">Version {{ config('app.version') }}</div>
             </div>
         </div>
 

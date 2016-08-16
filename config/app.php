@@ -15,6 +15,10 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
+    'version' => env('VERSION', '1.0'),
+    'fb_access_token' => env('FB_ACCESS_TOKEN', ''),
+    'fb_access_token_expires' => env('FB_ACCESS_TOKEN_EXPIRES', ''),
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
